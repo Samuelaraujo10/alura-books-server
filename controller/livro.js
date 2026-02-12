@@ -1,9 +1,9 @@
 
-const { getTodosLivros, getLivroPorId } = require('../services/livros')
+const { getTodosLivros, getLivroPorId, insereLivro } = require('../services/livros')
 
 function getLivros(req, res) {
     try {
-        const livros = getTodosLivros
+        const livros = getTodosLivros()
         res.send(livros)
     } catch (error) {
         res.status(500)
@@ -22,7 +22,25 @@ function getLivro(req, res) {
     }
 }
 
+function postLivro(req, res) {
+    try {
+        const livroNovo = req.body
+        if (!livroNovo || !livroNovo.id || !livroNovo.nome) {
+            res.status(400)
+            res.send('Livro deve conter id e nome')
+            return
+        }
+        insereLivro(livroNovo)
+        res.status(201)
+        res.send('Livro adicionado com sucesso')
+    } catch(error) {
+        res.status(500)
+        res.send(error.message)
+    }
+}
+
 module.exports = {
     getLivros,
-    getLivro
+    getLivro,
+    postLivro
 }
