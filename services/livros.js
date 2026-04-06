@@ -38,7 +38,6 @@ function deletaLivro(id) {
     try {
         let livrosAtuais = JSON.parse(fs.readFileSync('livros.json'))
         
-
         const indice = livrosAtuais.findIndex(livro => String(livro.id) === String(id))
 
         if (indice === -1) {
