@@ -34,8 +34,14 @@ function postLivro(req, res) {
     try {
         const livroNovo = req.body
         if (!livroNovo || !livroNovo.id || !livroNovo.nome) {
-            res.status(400)
-            res.send('Livro deve conter id e nome')
+            res.status(422)
+            res.send('Livro deve conter obrigatoriamente ID e nome')
+            return
+        }
+        const livroExistente = getLivroPorId(livroNovo.id)
+        if (livroExistente || livroNovo.nome) {
+            res.status(409)
+            res.send('Este livro já existe')
             return
         }
         insereLivro(livroNovo)
@@ -79,7 +85,7 @@ function deleteLivro(req, res) {
             res.status(422)
             res.send('ID inválido')
         }
-        
+
     } catch (error) {
         res.status(500)
         res.send(error.message) 
