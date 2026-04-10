@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 function getTodosFavoritos() {
     return JSON.parse(fs.readFileSync('favoritos.json'))
 }

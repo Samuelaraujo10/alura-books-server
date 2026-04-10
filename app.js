@@ -19,3 +19,5 @@ app.listen(port, () => {
     console.log(`Escutando na porta ${port}`);
     
 })
+
+// Rodar: npx nodemon app.js
